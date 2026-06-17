@@ -1,3 +1,6 @@
+[submodule "src/youbot_driver"]
+	path = src/youbot_driver
+	url = https://github.com/a2s-institute/youbot_driver.git
 [submodule "src/youbot_driver_ros_interface"]
 	path = src/youbot_driver_ros_interface
 	url = https://github.com/huynhtancuong/youbot_driver_ros_interface.git
