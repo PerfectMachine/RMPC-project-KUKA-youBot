@@ -124,16 +124,16 @@ RMPC-project-KUKA-youBot/
 │   ├── youbot-ethercat.cfg
 │   ├── youbot-base.cfg
 │   └── youbot-manipulator.cfg
-├── docs/                                      # Документация (User Manual, Specification)
+├── docs/                                      # Документация и прочие файлы
 │   ├── KUKA_youBot_User_Manual.pdf
 │   └── Specification_KUKA_youBot.pdf
 ├── src/                                       # Исходный код (catkin workspace)
 │   ├── youbot_driver/                         # [подмодуль] Базовый EtherCAT API
 │   │   └── config -> ../../../config          # симлинк на корневую папку config
 │   ├── youbot_driver_ros_interface/           # [подмодуль] ROS-обёртка для Noetic
-│   ├── youbot_description/                    # [подмодуль] URDF-модель и меши
+│   ├── youbot_description/                    # [подмодуль] URDF-модель
 │   ├── brics_actuator/                        # [вручную] Сообщения для управления
-│   └── youbot_controller/                     # [ваш пакет] Управляющий узел
+│   └── youbot_controller/                     # [наш пакет] Управляющий узел
 │       ├── scripts/
 │       │   └── youbot_controller.py
 │       ├── launch/
@@ -142,8 +142,7 @@ RMPC-project-KUKA-youBot/
 │       └── CMakeLists.txt
 ├── .gitignore
 ├── .gitmodules
-├── README.md
-└── LICENSE
+└── README.md
 ```
 ---
 
