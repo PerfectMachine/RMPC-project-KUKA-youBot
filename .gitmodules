@@ -8,3 +8,6 @@
 [submodule "src/youbot_description"]
 	path = src/youbot_description
 	url = https://github.com/a2s-institute/youbot_description.git
+[submodule "src/youbot_simulation"]
+	path = src/youbot_simulation
+	url = https://github.com/a2s-institute/youbot_simulation.git
