@@ -25,14 +25,18 @@ class PID:
         self.prev_error = error
         return output
 
+    def reset(self):
+        self.integral = 0.0
+        self.prev_error = 0.0
+
 
 class Controller:
-    def __init__(self, linear_gains=(0.3, 0.01, 0.05),
-                 angular_gains=(1.0, 0.05, 0.15),
+    def __init__(self, linear_gains=(0.8, 0.0, 0.1),
+                 angular_gains=(1.5, 0.0, 0.2),
                  arm_gains=(1.0, 0.0, 0.0),
                  dt=0.02):
-        self.pid_linear = PID(*linear_gains, dt=dt, output_limits=(-0.5, 0.5))
-        self.pid_angular = PID(*angular_gains, dt=dt, output_limits=(-1.0, 1.0))
+        self.pid_linear = PID(*linear_gains, dt=dt, output_limits=(0.0, 0.5))
+        self.pid_angular = PID(*angular_gains, dt=dt, output_limits=(-1.5, 1.5))
         self.arm_gains = arm_gains
         self.dt = dt
 
@@ -44,11 +48,17 @@ class Controller:
         theta_error = angle_to_target - current_pose['theta']
         theta_error = math.atan2(math.sin(theta_error), math.cos(theta_error))
 
-        linear_vel = self.pid_linear.compute(0.0, distance)
-        angular_vel = self.pid_angular.compute(0.0, theta_error)
+        # ВАЖНО: setpoint = цель, measurement = 0 -> ошибка положительна,
+        # робот едет К цели, скорость падает по мере приближения.
+        linear_vel = self.pid_linear.compute(distance, 0.0)
+        angular_vel = self.pid_angular.compute(theta_error, 0.0)
 
-        # Принудительная остановка при приближении
-        if distance < 0.02:
+        # Пока робот сильно отвёрнут от цели — почти не едем вперёд, доворачиваемся
+        if abs(theta_error) > 0.6:
+            linear_vel *= 0.15
+
+        # Приехали
+        if distance < 0.05:
             linear_vel = 0.0
             angular_vel = 0.0
 
