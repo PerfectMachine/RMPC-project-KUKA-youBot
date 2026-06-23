@@ -1,4 +1,0 @@
-<launch>
-    <!-- Запуск управляющего узла -->
-    <node name="youbot_controller" pkg="youbot_controller" type="youbot_controller.py" output="screen"/>
-</launch>
